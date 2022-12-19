@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+				"-//mybatis.org//DTD Mapper 3.0//EN"
+  				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.board.mapper.BoardMapper">
+	<select id="getList" resultType="kr.board.entity.Board">
+		select * from board order by idx desc
+	</select>
+	
+	<select id="boardContent" parameterType="Integer" resultType="kr.board.entity.Board">
+		select * from board where idx=#{idx}
+	</select>
+	
+	<insert id="boardInsert" parameterType="kr.board.entity.Board">
+		insert into board(title, contents, writer)
+		values(#{title}, #{contents}, #{writer})
+	</insert>
+	
+	<delete id="boardDelete" parameterType="Integer">
+		delete from board where idx=#{idx}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="kr.board.entity.Board">
+		update board 
+			set title=#{title}, contents=#{contents}
+			where idx=#{idx}
+	</update>
+	
+</mapper>				

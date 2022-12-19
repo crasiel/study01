@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+
+.panel { 
+margin-top : 20px;
+border : none;
+}
+.panel-heading {
+font-weight: bold;
+  	font-size: 1.1em; 
+}
+.panel-footer {
+	background-color : #337ab7;
+	color : #eee;
+	text-align : right;
+	padding-right : 40px;
+}
+tr:last-child {
+	border-bottom: 1px solid #ddd
+}
+.form-control[readonly] { background-color : white;}
+.idx {border : none; -webkit-box-shadow:none;}
+h2 {
+	color : #337ab7;
+	}
+	a {
+	cursor : pointer;
+	color : #333;
+	}
