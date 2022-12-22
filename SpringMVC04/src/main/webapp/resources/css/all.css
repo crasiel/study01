@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.panel { 
+width : 95%;
+margin : 0 auto;
+margin-top : 20px;
+border : none;
+}
+.panel-heading {
+	font-weight: bold;
+  	font-size: 1.2em; 
+}
+.panel-footer {
+	background-color : #d9edf7;
+	color : #337ab7;
+	border : none;
+	text-align : right;
+	padding-right : 40px;
+}
+input[type=text],input[type=password],input[type=number],input[type=email], textarea.form-control {
+	border-color : #d9edf7;
+	-webkit-box-shadow : none;
+}
+.table>thead:first-child>tr:first-child>th{border-top : 2px solid #337ab7; }
+.table>tbody>tr>td  { border-bottom: 1px solid; }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	border-color : #337ab7;
+}
+.table-bordered>tbody>tr>td{ border : 1px solid #337ab7; }
+.trView { border : 1px solid #337ab7; background-color : #d9edf7; }
+.trChoice { border : 1px solid #337ab7; background-color : #d9edf7; }
+
+.form-control[readonly] { background-color : white;}
+.idx, .form-control[readonly] {border : none; -webkit-box-shadow:none;}
+h2 {
+	color : #337ab7;
+	}
+	a {
+	cursor : pointer;
+	color : #333;
+	}

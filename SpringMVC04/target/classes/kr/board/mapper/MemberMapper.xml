@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+				"-//mybatis.org//DTD Mapper 3.0//EN"
+  				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.board.mapper.MemberMapper">
+	<select id="memRegisterCheck" resultType="kr.board.entity.Member">
+		select * from mem_tbl where memId=#{memID}
+	</select>
+	<insert id="register" parameterType="kr.board.entity.Member">
+		insert into mem_tbl(memId, memPassword, memName, memAge, memGender, memEmail, memProfile)
+			values(#{memId}, #{memPassword}, #{memName}, #{memAge}, #{memGender}, #{memEmail}, #{memProfile})
+	</insert>
+	
+	<select id="memLogin" parameterType="kr.board.entity.Member" resultType="kr.board.entity.Member">
+		select * from mem_tbl where memId=#{memId} and memPassword=#{memPassword}
+	</select>
+	
+	<update id="memUpdate" parameterType="kr.board.entity.Member">
+		update mem_tbl 
+			set memName=#{memName}, memAge=#{memAge}, memGender=#{memGender}, memEmail=#{memEmail}
+			where memId=#{memId}
+	</update>
+	<select id="getMember" resultType="kr.board.entity.Member">
+		select * from mem_tbl where memId=#{memId}
+	</select>
+	<update id="memImageUpdate"	parameterType="kr.board.entity.Member">
+		update mem_tbl set memProfile=#{memProfile} where memId=#{memId}
+	</update>
+</mapper>				
