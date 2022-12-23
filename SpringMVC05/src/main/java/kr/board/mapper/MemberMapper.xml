@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+				"-//mybatis.org//DTD Mapper 3.0//EN"
+  				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.board.mapper.MemberMapper">
+
+	<resultMap type="kr.board.entity.Member" id="memberMap">
+		<id property="memIdx" column="memIdx" />
+		<result property="memId" column="memId" />
+		<result property="memPassword" column="memPassword" />
+		<result property="memName" column="memName" />
+		<result property="memAge" column="memAge" />
+		<result property="memGender" column="memGender" />
+		<result property="memEmail" column="memEmail" />
+		<result property="memProfile" column="memProfile" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+	<resultMap type="kr.board.entity.AuthVO" id="authMap">
+		<id property="no" column="no" />
+		<result property="memId" column="memId" />
+		<result property="auth" column="auth"/>
+	</resultMap>
+
+	<select id="memRegisterCheck" resultType="kr.board.entity.Member">
+		SELECT * FROM member_tbl WHERE memId=#{memID}
+	</select>
+	<insert id="register" parameterType="kr.board.entity.Member">
+		INSERT INTO member_tbl(memIdx, memId, memPassword, memName, memAge, memGender, memEmail, memProfile)
+			VALUES((select IFNULL(MAX(memIdx)+1, 1) from member_tbl mem),
+					 #{memId}, #{memPassword}, #{memName}, #{memAge}, #{memGender}, #{memEmail}, #{memProfile})
+	</insert>
+	<!-- 사용자권한 생성하기 -->
+	<insert id="authInsert" parameterType="kr.board.entity.AuthVO">
+		INSERT INTO member_auth(memId, auth) VALUES(#{memId}, #{auth})
+	</insert>
+	
+	<select id="memLogin" parameterType="kr.board.entity.Member" resultMap="memberMap">
+		SELECT * 
+		FROM member_tbl mem LEFT OUTER JOIN member_auth auth ON mem.memId=auth.memId  
+		WHERE mem.memId=#{memId}
+	</select>
+	
+	<update id="memUpdate" parameterType="kr.board.entity.Member">
+		UPDATE member_tbl 
+			SET memName=#{memName}, memAge=#{memAge}, memGender=#{memGender}, memEmail=#{memEmail}
+			WHERE memId=#{memId}
+	</update>
+	<!-- 사용자권한삭제하기 -->
+	<delete id="authDelete">
+		DELETE FROM member_auth WHERE memId=#{memId}
+	</delete>
+	
+	<!-- 회원정보 + 권한정보 가져오기 -->
+	<select id="getMember" resultMap="memberMap">
+		SELECT * 
+		FROM member_tbl mem LEFT OUTER JOIN member_auth auth ON mem.memId=auth.memId 
+		WHERE mem.memId=#{memId}
+	</select>
+	<update id="memImageUpdate"	parameterType="kr.board.entity.Member">
+		UPDATE member_tbl SET memProfile=#{memProfile} WHERE memId=#{memId}
+	</update>
+</mapper>				
